@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Vue from 'vue';
+import router from '../../../routes';
 
 const FbAuth = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
 const FbApiKey = "AIzaSyB95EXqnFaV48ws5DcETgnH7VM-AAqbWfI";
@@ -12,12 +13,22 @@ const admin = {
     authFailed: false
   },
   getters: {
-
+    isAuth(state) {
+      if(state.token){
+        return true
+      } else {
+        return false
+      }
+    }
   },
   mutations: {
     authUser(state, authData) {
       state.token = authData.idToken;
       state.refresh = authData.refreshToken;
+
+      if(authData.type === 'signin') {
+        router.push('/dashboard');
+      }
     },
     authFailed(state, type){
       if(type === 'reset'){
@@ -28,6 +39,14 @@ const admin = {
           state.authFailed = false;
         },3000)
       }
+    },
+    logoutUser(state) {
+      state.token = null;
+      state.refresh = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh');
+
+      router.push('/');
     }
   },
   actions: {
