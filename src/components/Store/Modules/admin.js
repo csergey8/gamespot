@@ -67,6 +67,26 @@ const admin = {
       .catch(err => {
         commit("authFailed")
       })
+    }, 
+    refreshToken({commit}) {
+      const refreshToken = localStorage.getItem('refresh');
+      if(refreshToken) {
+        Vue.http.post(`https://securetoken.googleapis.com/v1/token?key=${FbApiKey}`, {
+          refresh_token: refreshToken,
+          grant_type: 'refresh_token'
+        })
+        .then(res => res.json())
+        .then(data => {
+          commit("authUser", {
+            idToken: data.id_token,
+            refreshToken: data.refresh_token,
+            type: 'refresh'
+          });
+          localStorage.setItem('token', data.id_token);
+          localStorage.setItem('refresh', data.refresh_token);
+        })
+        .catch(err => console.log(err))
+      }
     }
   }
 }
