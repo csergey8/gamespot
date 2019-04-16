@@ -1,6 +1,7 @@
 <template>
   <div>
     <comp-featured />
+    <comp-content />
   </div>
 </template>
 
