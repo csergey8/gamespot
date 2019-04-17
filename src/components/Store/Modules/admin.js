@@ -10,7 +10,8 @@ const admin = {
   state: {
     token: null,
     refresh: null,
-    authFailed: false
+    authFailed: false,
+    refreshLoading: true
   },
   getters: {
     isAuth(state) {
@@ -19,6 +20,9 @@ const admin = {
       } else {
         return false
       }
+    },
+    refreshLoading(state) {
+      return state.refreshLoading
     }
   },
   mutations: {
@@ -47,6 +51,9 @@ const admin = {
       localStorage.removeItem('refresh');
 
       router.push('/');
+    },
+    refreshLoading(state) {
+      state.refreshLoading = false;
     }
   },
   actions: {
@@ -82,10 +89,15 @@ const admin = {
             refreshToken: data.refresh_token,
             type: 'refresh'
           });
+
+          commit("refreshLoading");
+
           localStorage.setItem('token', data.id_token);
           localStorage.setItem('refresh', data.refresh_token);
         })
         .catch(err => console.log(err))
+      } else {
+        commit("refreshLoading");
       }
     }
   }
