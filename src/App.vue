@@ -25,4 +25,5 @@ export default {
 
 <style>
   @import './assets/style.css';
+  @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 </style>

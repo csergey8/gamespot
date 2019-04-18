@@ -5,19 +5,25 @@ import router from './routes';
 import store from './components/Store/store';
 import vuelidate from 'vuelidate';
 
-import { MdCard } from 'vue-material/dist/components';
+import { MdCard, MdButton, MdDialog, MdContent } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
+import wysiwyg from "vue-wysiwyg";
 
 import Button from './components/UI/button.vue';
 
 Vue.component('app-button', Button);
 
 Vue.use(VueResource);
-Vue.http.options.root = "";
+Vue.http.options.root = "https://gamespot-96400.firebaseio.com/";
 
 Vue.use(MdCard);
+Vue.use(MdButton);
+Vue.use(MdDialog);
+Vue.use(MdContent);
 
 Vue.use(vuelidate);
+
+Vue.use(wysiwyg, {}); 
 
 Vue.config.productionTip = false
 
