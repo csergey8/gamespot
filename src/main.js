@@ -5,7 +5,7 @@ import router from './routes';
 import store from './components/Store/store';
 import vuelidate from 'vuelidate';
 
-import { MdCard, MdButton, MdDialog, MdContent } from 'vue-material/dist/components';
+import { MdCard, MdButton, MdDialog, MdContent, MdTable, MdDialogConfirm } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import wysiwyg from "vue-wysiwyg";
 
@@ -20,6 +20,8 @@ Vue.use(MdCard);
 Vue.use(MdButton);
 Vue.use(MdDialog);
 Vue.use(MdContent);
+Vue.use(MdTable);
+Vue.use(MdDialogConfirm);
 
 Vue.use(vuelidate);
 
