@@ -25,7 +25,6 @@ export default {
   created() {
     let id = this.$route.params.id;
     this.$store.dispatch('posts/getPost' ,id);
-    console.log(this.$store.getters['posts/getPost']);
   },
   destroyed() {
     this.$store.commit('posts/clearPost');

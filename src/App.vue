@@ -17,7 +17,6 @@ export default {
   },
   created() {
     this.$store.dispatch('admin/refreshToken');
-    console.log('start')
   }
   
 }

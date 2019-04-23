@@ -25,27 +25,50 @@
             class="post_delete"
             @click="deleteHandler(post.id)"
           >
-
+          Delete
 
           </div>
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <md-dialog-confirm
+     :md-active.sync="confirmDelete"
+     md-title="Confirm delete"
+     md-content="`Are you sure you want to delete this post?`"
+     md-confirm-text="Yes, delete"
+     md-cancel-text="Cancel"
+     @md-cancel="onCancel"
+     @md-confirm="onConfirm"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      confirmDelete: false,
+      deletePostId: null
+    }
+  },
   computed: {
     posts() {
       let posts = this.$store.getters['admin/getAdminPosts'];
-      console.log(posts);
       return posts;
     }
   },
   methods: {
     deleteHandler(id) {
-      
+      this.confirmDelete = true;
+      this.deletePostId = id;
+    },
+    onCancel() {
+      this.deletePostId = null;
+      this.confirmDelete = false;
+    },
+    onConfirm() {
+      this.$store.dispatch('admin/deletePost', this.deletePostId);
+      this.confirmDelete = false;
     }
   },
   created() {

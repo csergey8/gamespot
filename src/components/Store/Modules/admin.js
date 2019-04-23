@@ -81,6 +81,10 @@ const admin = {
     },
     getAdminPosts(state, posts) {
      state.adminPosts = posts;
+    },
+    deletePost(state, id) {
+      let posts = state.adminPosts.filter(post => post.id !== id);
+      state.adminPosts = posts;
     }
   },
   actions: {
@@ -168,6 +172,12 @@ const admin = {
         commit("getAdminPosts" ,posts.reverse());
       })
       
+    },
+    deletePost({ commit, state }, id) {
+      Vue.http.delete(`posts/${id}.json?auth=${state.token}`)
+        .then(res => {
+          commit("deletePost", id);
+        })
     }
   }
 }

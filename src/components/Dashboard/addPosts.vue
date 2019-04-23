@@ -148,7 +148,7 @@ export default {
     methods:{
         clearPost(){
             this.$v.$reset()
-            this.$refs.myFileInput.value = '';
+            this.$refs.myFileInput ? this.$refs.myFileInput.value = '' : null;
             this.formdata = {
                 img:'',
                 title:'',
